@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  web:
+    build: app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://neurobot:neurobot@db/neurobot"
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: neurobot
+      POSTGRES_PASSWORD: neurobot
+      POSTGRES_DB: neurobot
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
