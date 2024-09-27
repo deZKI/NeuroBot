@@ -3,7 +3,7 @@ from sqladmin import Admin
 
 from app.admin.routes import UserAdmin, KnowledgeAdmin, HistoryAdmin
 from app.bot.bot import start_bot
-from app.db import init_db, engine
+from app.db import engine, init_db
 
 app = FastAPI()
 

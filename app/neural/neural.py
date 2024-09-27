@@ -1,12 +1,17 @@
-from transformers import pipeline
-
+import openai
 
 class NeuralNetwork:
-    def __init__(self, model_name: str = "gpt-3.5-turbo"):
-        # Инициализация нейросети с использованием предобученной модели
-        self.model = pipeline("text-generation", model=model_name)
+    def __init__(self, api_key: str, model_name: str = "gpt-3.5-turbo"):
+        openai.api_key = api_key
+        self.model_name = model_name
 
-    def generate_response(self, prompt: str, max_length: int = 100):
-        # Генерация ответа на основе входного текста
-        response = self.model(prompt, max_length=max_length)
-        return response[0]['generated_text']
+    def generate_response(self, prompt: str, max_tokens: int = 100):
+        response = openai.ChatCompletion.create(
+            model=self.model_name,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=max_tokens
+        )
+        return response['choices'][0]['message']['content']
