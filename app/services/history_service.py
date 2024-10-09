@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.dao import HistoryDAO
 
+
 class HistoryService:
     def __init__(self, db: AsyncSession):
         self.dao = HistoryDAO(db)
